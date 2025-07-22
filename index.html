@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Builder Pro - Ultimate PC Configuration Tool</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-text {
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #3b82f6;
+        }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .component-card {
+            background: rgba(55, 65, 81, 0.5);
+            border: 1px solid rgba(75, 85, 99, 0.5);
+            transition: all 0.3s ease;
+        }
+        .component-card:hover {
+            background: rgba(55, 65, 81, 0.8);
+            border-color: #3b82f6;
+        }
+        .component-card.selected {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+        }
+        .comparison-table {
+            background: rgba(31, 41, 55, 0.8);
+        }
+        .build-summary {
+            background: rgba(31, 41, 55, 0.9);
+            border: 1px solid rgba(75, 85, 99, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-gray-900 bg-opacity-95 backdrop-blur-sm border-b border-gray-700 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-xl font-bold gradient-text cursor-pointer" onclick="showSection('home')">
+                    PC Builder Pro
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="#" class="nav-link text-sm font-medium" onclick="showSection('home')">Home</a>
+                    <a href="#" class="nav-link text-sm font-medium" onclick="showSection('compare')">Compare</a>
+                    <a href="#" class="nav-link text-sm font-medium" onclick="showSection('configurator')">Build</a>
+                    <a href="#" class="nav-link text-sm font-medium" onclick="showSection('prebuilt')">Pre-built</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <div id="home" class="content-section active">
+        <div class="container mx-auto px-4 py-12">
+            <!-- Hero Section -->
+            <div class="text-center space-y-8 mb-16">
+                <h1 class="text-6xl font-bold gradient-text mb-6">
+                    PC Builder Pro
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Ultimate PC Configuration Tool for AI/ML, Gaming, and Video Editing
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
+                    <span class="bg-blue-600 bg-opacity-20 text-blue-300 px-4 py-2 rounded-full border border-blue-500">
+                        <i class="fas fa-brain mr-2"></i>AI/ML Optimized
+                    </span>
+                    <span class="bg-green-600 bg-opacity-20 text-green-300 px-4 py-2 rounded-full border border-green-500">
+                        <i class="fas fa-gamepad mr-2"></i>Gaming Ready
+                    </span>
+                    <span class="bg-purple-600 bg-opacity-20 text-purple-300 px-4 py-2 rounded-full border border-purple-500">
+                        <i class="fas fa-video mr-2"></i>Video Editing
+                    </span>
+                </div>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <div class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700 card-hover cursor-pointer" onclick="showSection('compare')">
+                    <div class="text-blue-500 text-3xl mb-4">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Component Comparison</h3>
+                    <p class="text-gray-400 mb-6">
+                        Compare PC components side-by-side with detailed specifications and performance metrics
+                    </p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
+                        Start Comparing
+                    </button>
+                </div>
+
+                <div class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700 card-hover cursor-pointer" onclick="showSection('configurator')">
+                    <div class="text-green-500 text-3xl mb-4">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Build Configurator</h3>
+                    <p class="text-gray-400 mb-6">
+                        Create your custom PC build with real-time compatibility checking and performance estimates
+                    </p>
+                    <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors">
+                        Build Your PC
+                    </button>
+                </div>
+
+                <div class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700 card-hover cursor-pointer" onclick="showSection('prebuilt')">
+                    <div class="text-purple-500 text-3xl mb-4">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Pre-built Configs</h3>
+                    <p class="text-gray-400 mb-6">
+                        Expertly curated PC builds optimized for specific use cases and performance requirements
+                    </p>
+                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-colors">
+                        View Configurations
+                    </button>
+                </div>
+            </div>
+
+            <!-- Component Categories -->
+            <div class="space-y-8">
+                <h2 class="text-4xl font-bold text-center gradient-text">Component Categories</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="bg-gray-800 bg-opacity-50 p-6 rounded-xl border border-gray-700 text-center card-hover cursor-pointer" onclick="filterComponents('cpu')">
+                        <i class="fas fa-microchip text-4xl text-blue-500 mb-4"></i>
+                        <h3 class="font-semibold">Processors</h3>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-50 p-6 rounded-xl border border-gray-700 text-center card-hover cursor-pointer" onclick="filterComponents('gpu')">
+                        <i class="fas fa-tv text-4xl text-green-500 mb-4"></i>
+                        <h3 class="font-semibold">Graphics Cards</h3>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-50 p-6 rounded-xl border border-gray-700 text-center card-hover cursor-pointer" onclick="filterComponents('ram')">
+                        <i class="fas fa-memory text-4xl text-yellow-500 mb-4"></i>
+                        <h3 class="font-semibold">Memory</h3>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-50 p-6 rounded-xl border border-gray-700 text-center card-hover cursor-pointer" onclick="filterComponents('storage')">
+                        <i class="fas fa-hdd text-4xl text-red-500 mb-4"></i>
+                        <h3 class="font-semibold">Storage</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compare Section -->
+    <div id="compare" class="content-section">
+        <div class="container mx-auto px-4 py-12">
+            <div class="flex items-center justify-between mb-8">
+                <h1 class="text-4xl font-bold gradient-text">Component Comparison</h1>
+                <button onclick="showSection('home')" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Home
+                </button>
+            </div>
+            
+            <!-- Component Type Selector -->
+            <div class="mb-8">
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="showComponents('cpu')" class="component-type-btn bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-microchip mr-2"></i>CPUs
+                    </button>
+                    <button onclick="showComponents('gpu')" class="component-type-btn bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-tv mr-2"></i>GPUs
+                    </button>
+                    <button onclick="showComponents('ram')" class="component-type-btn bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-memory mr-2"></i>RAM
+                    </button>
+                    <button onclick="showComponents('storage')" class="component-type-btn bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-hdd mr-2"></i>Storage
+                    </button>
+                </div>
+            </div>
+
+            <!-- Component List -->
+            <div id="component-list" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Components will be populated by JavaScript -->
+            </div>
+
+            <!-- Comparison Table -->
+            <div id="comparison-section" class="comparison-table rounded-xl p-6" style="display: none;">
+                <h3 class="text-2xl font-semibold mb-6">Comparison Results</h3>
+                <div id="comparison-table" class="overflow-x-auto">
+                    <!-- Comparison table will be populated by JavaScript -->
+                </div>
+                <button onclick="clearComparison()" class="mt-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors">
+                    Clear Comparison
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Build Configurator Section -->
+    <div id="configurator" class="content-section">
+        <div class="container mx-auto px-4 py-12">
+            <div class="flex items-center justify-between mb-8">
+                <h1 class="text-4xl font-bold gradient-text">Build Configurator</h1>
+                <button onclick="showSection('home')" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Home
+                </button>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Component Selection -->
+                <div class="lg:col-span-2">
+                    <h2 class="text-2xl font-semibold mb-6">Select Components</h2>
+                    
+                    <!-- CPU Selection -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold mb-4 text-blue-400">
+                            <i class="fas fa-microchip mr-2"></i>Processor (CPU)
+                        </h3>
+                        <div id="cpu-selection" class="grid md:grid-cols-2 gap-4">
+                            <!-- CPU options will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- GPU Selection -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold mb-4 text-green-400">
+                            <i class="fas fa-tv mr-2"></i>Graphics Card (GPU)
+                        </h3>
+                        <div id="gpu-selection" class="grid md:grid-cols-2 gap-4">
+                            <!-- GPU options will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- RAM Selection -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold mb-4 text-yellow-400">
+                            <i class="fas fa-memory mr-2"></i>Memory (RAM)
+                        </h3>
+                        <div id="ram-selection" class="grid md:grid-cols-2 gap-4">
+                            <!-- RAM options will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Storage Selection -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold mb-4 text-red-400">
+                            <i class="fas fa-hdd mr-2"></i>Storage
+                        </h3>
+                        <div id="storage-selection" class="grid md:grid-cols-2 gap-4">
+                            <!-- Storage options will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Build Summary -->
+                <div class="lg:col-span-1">
+                    <div class="build-summary rounded-xl p-6 sticky top-24">
+                        <h3 class="text-xl font-semibold mb-6">Your Build</h3>
+                        <div id="build-summary" class="space-y-4">
+                            <div class="flex justify-between items-center py-2 border-b border-gray-600">
+                                <span class="text-gray-400">CPU:</span>
+                                <span id="selected-cpu" class="text-sm">Not selected</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-gray-600">
+                                <span class="text-gray-400">GPU:</span>
+                                <span id="selected-gpu" class="text-sm">Not selected</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-gray-600">
+                                <span class="text-gray-400">RAM:</span>
+                                <span id="selected-ram" class="text-sm">Not selected</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-gray-600">
+                                <span class="text-gray-400">Storage:</span>
+                                <span id="selected-storage" class="text-sm">Not selected</span>
+                            </div>
+                            <div class="flex justify-between items-center py-3 border-t border-gray-500 mt-4">
+                                <span class="font-semibold">Total Price:</span>
+                                <span id="total-price" class="font-semibold text-green-400">$0</span>
+                            </div>
+                        </div>
+                        <div class="mt-6 space-y-3">
+                            <button onclick="clearBuild()" class="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors">
+                                Clear Build
+                            </button>
+                            <button onclick="saveBuild()" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                                Save Build
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pre-built Configs Section -->
+    <div id="prebuilt" class="content-section">
+        <div class="container mx-auto px-4 py-12">
+            <div class="flex items-center justify-between mb-8">
+                <h1 class="text-4xl font-bold gradient-text">Pre-built Configurations</h1>
+                <button onclick="showSection('home')" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Home
+                </button>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700 card-hover">
+                    <div class="text-blue-500 text-4xl mb-4">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Optimal LLM Build</h3>
+                    <p class="text-gray-400 mb-6">
+                        Optimized for running Large Language Models locally with high-core CPUs and VRAM-rich GPUs
+                    </p>
+                    <div class="space-y-2 mb-6 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">CPU:</span>
+                            <span>AMD Ryzen 9 7950X</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">GPU:</span>
+                            <span>RTX 4090 24GB</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">RAM:</span>
+                            <span>64GB DDR5-5600</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Storage:</span>
+                            <span>2TB NVMe SSD</span>
+                        </div>
+                        <div class="flex justify-between font-semibold text-green-400 pt-2 border-t border-gray-600">
+                            <span>Total:</span>
+                            <span>$4,299</span>
+                        </div>
+                    </div>
+                    <button onclick="loadPrebuiltConfig('llm')" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors w-full">
+                        Load Configuration
+                    </button>
+                </div>
+
+                <div class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700 card-hover">
+                    <div class="text-green-500 text-4xl mb-4">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Ultimate Gaming Build</h3>
+                    <p class="text-gray-400 mb-6">
+                        High-end gaming with excellent performance and graphics for 4K gaming and ray tracing
+                    </p>
+                    <div class="space-y-2 mb-6 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">CPU:</span>
+                            <span>Intel i7-14700K</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">GPU:</span>
+                            <span>RTX 4080 Super</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">RAM:</span>
+                            <span>32GB DDR5-6000</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Storage:</span>
+                            <span>1TB NVMe SSD</span>
+                        </div>
+                        <div class="flex justify-between font-semibold text-green-400 pt-2 border-t border-gray-600">
+                            <span>Total:</span>
+                            <span>$2,899</span>
+                        </div>
+                    </div>
+                    <button onclick="loadPrebuiltConfig('gaming')" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors w-full">
+                        Load Configuration
+                    </button>
+                </div>
+
+                <div class="bg-gray-800 bg-opacity-50 p-8 rounded-xl border border-gray-700 card-hover">
+                    <div class="text-purple-500 text-4xl mb-4">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Video Editing Build</h3>
+                    <p class="text-gray-400 mb-6">
+                        Professional-grade video editing and rendering for 4K/8K content creation
+                    </p>
+                    <div class="space-y-2 mb-6 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">CPU:</span>
+                            <span>AMD Ryzen 9 7900X</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">GPU:</span>
+                            <span>RTX 4070 Ti Super</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">RAM:</span>
+                            <span>64GB DDR5-5200</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Storage:</span>
+                            <span>4TB NVMe SSD</span>
+                        </div>
+                        <div class="flex justify-between font-semibold text-green-400 pt-2 border-t border-gray-600">
+                            <span>Total:</span>
+                            <span>$3,199</span>
+                        </div>
+                    </div>
+                    <button onclick="loadPrebuiltConfig('video')" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-colors w-full">
+                        Load Configuration
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 bg-opacity-95 border-t border-gray-700 mt-16">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <p class="text-gray-400">
+                    Built with ❤️ for the PC building community | 
+                    <a href="https://github.com/knachiketa04/pc-builder-pro" class="text-blue-400 hover:text-blue-300">
+                        <i class="fab fa-github mr-1"></i>View on GitHub
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
